@@ -1,0 +1,122 @@
+* {
+    font-family: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --roxo-fundo: #3C0734;
+    --rosa-principal: #F442DE;
+    --rosa-secundario: #FF9DEA;
+    --branco-fundo: #EFDBEB;
+}
+
+body {
+    background-color: var( --roxo-fundo);
+    color: white;
+    display: flex;
+    width: 100vh;
+    /* overflow: hidden; Evita rolagem na página */
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}
+
+#barraEsquerda {
+    margin: 20px;
+    height: 95vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    color: white;
+}
+
+.BEContent {
+    flex: 1;
+    overflow-y: auto; /* Para a rolagem do conteúdo interno, se necessário */
+}
+
+.imgLogo{
+    width: 60px; 
+    height: 60px;
+    border-radius: 12px;
+}
+
+
+.navList {
+    padding: 0;
+    margin: 20px 0 10px 20px;
+}
+
+.anav svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.anav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.linav {
+    list-style: none;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 32px;
+}
+.linav:hover {
+    background-color: #D9D9D933;
+}
+
+.butaoCriar {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+}
+
+.btnGnr svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.btnGnr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: var( --rosa-principal);
+    padding: 10px;
+    border-radius: 32px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: larger;
+}
+.btnGnr:hover {
+    background-color: var(--rosa-secundario);
+    color: black;
+}
+
+#perfilUsu {
+    margin-left: 300px; /* Espaço reservado para a barra lateral */
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    height: 100vw;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
