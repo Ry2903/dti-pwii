@@ -1,7 +1,9 @@
 * {
-    font-family: 12px;
+    font-family: Arial, sans-serif;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+
 }
 
 :root {
@@ -12,11 +14,11 @@
 }
 
 body {
-    background-color: var( --roxo-fundo);
-    color: white;
     display: flex;
-    width: 100vh;
-    /* overflow: hidden; Evita rolagem na página */
+    height: 100vh;
+    background-color: var(--roxo-fundo);
+    color: white;
+    overflow: hidden;
 }
 
 a {
@@ -26,14 +28,20 @@ a {
 }
 
 #barraEsquerda {
-    margin: 20px;
-    height: 95vh;
+    width: 250px; /* Largura fixa para a barra de navegação */
+    height: 100vh; /* Altura total da tela */
     position: fixed;
     left: 0;
     top: 0;
     padding: 20px;
     color: white;
+    border-right: solid 3px #FEE8ED;
+    background-color: var(--roxo-fundo);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Garante que o botão fique no final */
 }
+
 
 .BEContent {
     flex: 1;
@@ -46,24 +54,20 @@ a {
     border-radius: 12px;
 }
 
-
 .navList {
-    padding: 0;
-    margin: 20px 0 10px 20px;
-}
-
-.anav svg {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
+    margin: 40px 0;
 }
 
 .anav{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    font-size: medium;
-    font-weight: 600;
+    color: white;
+}
+
+.anav svg {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
 }
 
 .linav {
@@ -91,29 +95,105 @@ a {
 
 .btnGnr {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: var( --rosa-principal);
+    background-color: var(--rosa-principal);
     padding: 10px;
     border-radius: 32px;
     border: none;
     color: white;
-    font-weight: 700;
-    font-size: larger;
+    font-weight: bold;
+    cursor: pointer;
 }
 .btnGnr:hover {
     background-color: var(--rosa-secundario);
     color: black;
 }
 
+.btnSeguir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-weight: bold;
+    background-color: var(--rosa-principal);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 32px;
+    transition: background-color 0.3s;
+    width: 10vw;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 10px; /* Posiciona o botão no final da div */
+    left: 50%;
+    transform: translateX(-50%);
+}
+.btnSeguir:hover {
+    background-color: var(--rosa-secundario);
+    color: black;
+}
+
 #perfilUsu {
-    margin-left: 300px; /* Espaço reservado para a barra lateral */
+    margin-left: 250px;
     flex-grow: 1;
+    height: 95vh;
     overflow-y: auto;
     padding: 20px;
-    height: 100vw;
+}
+
+.perfilContent {
+    background-color: var(--branco-fundo);
+    border-radius: 20px;
+    padding: 20px;
+    color: black;
+    position: relative;
+    
+}
+
+#headerP {
+    position: relative;
+    text-align: center;
+    padding-bottom: 70px;
+
+}
+
+#headerP img {
+    width: 100%;
+    height: 200px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-bottom: 60px;
+}
+
+#fotoUsu {
+    position: absolute;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+#fotoUsu img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid white;
+    object-fit: cover;
+}
+
+.nomeUsu {
+    font-size: xx-large;
+    margin: 0;
+}
+
+.idtfUsu {
+
+}
+
+.bioUsu {
+    margin-top: 10px;
 }
 
 p {
