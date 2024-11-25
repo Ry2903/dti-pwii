@@ -1,0 +1,25 @@
+BD - Fashion Maven's
+
+Login :
+	- @ do user (FK)
+	- E-mail
+	- Senha
+
+Cadastro:
+	- @ do user (PK)
+	- Nome
+	- DataNasc
+	- E-mail
+	- Senha
+
+Posts:
+	- @ do User (FK)
+	- Post (260 caracteres)
+	- PFP
+
+Pagina do Usuário:
+	- Nome do usuário
+	- @ do User (FK)
+	- Bio
+	- Banner
+	- PFP
