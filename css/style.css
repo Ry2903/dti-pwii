@@ -200,3 +200,117 @@ p {
     padding: 0;
     margin: 0;
 }
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #35002a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.sidebar {
+    width: 200px;
+    background-color: #4b2154;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sidebar a, .sidebar button {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 15px 0;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.sidebar a:hover, .sidebar button:hover {
+    background-color: #a12477;
+}
+
+.container {
+    width: 80%;
+    margin-left: 220px;
+    padding: 20px;
+}
+header {
+    background-color: #49003d;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: -20px;
+}
+.post-container {
+    background-color: #152238;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.post-container h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.post-container p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #522154;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1000;
+}
+.popup textarea {
+    background-color: #522154;
+    border-color: #522154;
+    color: #ffffff;
+    width: 95%;
+    height: 100px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+.popup input[type="submit"] {
+    background-color: #cc0070;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.popup .close-btn {
+    background-color: #be0075;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
