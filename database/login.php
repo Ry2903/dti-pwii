@@ -1,40 +1,45 @@
 <?php
     // Configurações do banco de dados
     $dsn = 'mysql:host=localhost;dbname=fashionmavens';
-    $username = 'devs';
-    $password = 'manilha';
+    $username = 'root';
+    $password = '';
 
     try {
-        // Conexão com o banco de dados usando PDO
-        $pdo = new PDO($dsn, $username, $password);
-        
-        // Configura para lançar exceções em caso de erros
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        // Verifica se o formulário foi submetido
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Conexão com o banco de dados usando PDO
+            $pdo = new PDO($dsn, $username, $password);
+            
+            // Configura para lançar exceções em caso de erros
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            // Verifica se o formulário foi submetido
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Obtém os dados do formulário
             $user = $_POST['user'];
-            $email = $_POST['email'];
             $senha = $_POST['senha'];
             
-            // Prepara a consulta SQL
-            $sql = "INSERT INTO loginpage (user, email, senha) 
-            VALUES (:user, :email, :senha)";
-            
-            // Prepara a declaração
+            // Verifica se o nome de usuário existe no banco de dados
+            $sql = "SELECT * FROM cadastro WHERE user = :user";
             $stmt = $pdo->prepare($sql);
-            
-            // Associa os parâmetros com os valores
             $stmt->bindValue(':user', $user, PDO::PARAM_STR);
-            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-            $stmt->bindValue(':senha', $senha, PDO::PARAM_STR);
-            
-            // Executa a consulta
             $stmt->execute();
+
+            // Verifica se o usuário existe
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            echo "Dados inseridos com sucesso!";
+            if ($usuario) {
+                // Verifica a senha
+                if ($senha === $usuario['senha']) {
+                    echo "Login bem-sucedido!";
+                } else {
+                    echo "Senha incorreta!";
+                }
+            } else {
+                echo "Usuário não encontrado!";
+                // Se o usuário não for encontrado, redireciona para a página de cadastro
+                // header("Location: cadastro.php"); exit;
+            }
         }
+
     } catch(PDOException $e) {
         // Em caso de erro, exibe a mensagem de erro
         echo "Erro: " . $e->getMessage();
@@ -55,13 +60,8 @@
         <h2 class="text-2xl font-bold mb-4">Login:</h2>
         <form method="POST" class="max-w-lg">
             <div class="mb-4">
-                <label for="user" class="block text-gray-700">@ do Usuário:</label>
+                <label for="user" class="block text-gray-700">Logue com seu usuário (@):</label>
                 <input type="text" id="user" name="user" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700">E-mail:</label>
-                <input type="email" id="email" name="email" required class="form-input mt-1 block w-full">
             </div>
             
             <div class="mb-4">

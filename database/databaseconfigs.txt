@@ -7,7 +7,7 @@ Login :
 
 Cadastro:
 	- @ do user (PK)
-	- Nome
+	- Nome (PUXAR DA TABELA DE CADASTRO)
 	- DataNasc
 	- E-mail
 	- Senha

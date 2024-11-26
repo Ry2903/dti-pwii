@@ -1,8 +1,8 @@
 <?php
     // Configurações do banco de dados
     $dsn = 'mysql:host=localhost;dbname=fashionmavens';
-    $username = 'devs';
-    $password = 'manilha';
+    $username = 'root';
+    $password = '';
 
     try {
         // Conexão com o banco de dados usando PDO
@@ -19,6 +19,18 @@
             $nasc = $_POST['nasc'];
             $email = $_POST['email'];
             $senha = $_POST['senha'];
+
+            // Validação do email
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "E-mail inválido!";
+                exit;
+            }
+            
+            // Validação da senha (mínimo de 8 caracteres)
+            if (strlen($senha) < 8) {
+                echo "A senha deve ter pelo menos 8 caracteres!";
+                exit;
+            }
             
             // Prepara a consulta SQL
             $sql = "INSERT INTO cadastro (user, nome, nasc, email, senha) 
