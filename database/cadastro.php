@@ -1,6 +1,6 @@
 <?php
     // Configurações do banco de dados
-    $dsn = 'mysql:host=localhost;dbname=fashionmavens';
+    $dsn = 'mysql:host=localhost:3306;dbname=fashionmavens';
     $username = 'root';
     $password = '';
 
