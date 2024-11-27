@@ -264,3 +264,59 @@ p {
     display: none;
     z-index: 999;
 }
+
+/* Estilos para a Barra de Pesquisa */
+#barraPesquisa {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; /* Largura da barra de pesquisa */
+    max-width: 600px; /* Largura máxima */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formPesquisa {
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+.inputPesquisa {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 2px solid #ffffff;
+    font-size: 16px;
+    background-color: whitesmoke;
+    color: rgb(0, 0, 0);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.inputPesquisa:focus {
+    border-color: var(--rosa-principal);
+}
+
+.btnPesquisar {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #522154;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.btnPesquisar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btnPesquisar:hover {
+    color: var(--rosa-principal);
+}
