@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Maven's</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Adicionando jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <h2 class="text-2xl font-bold mb-4">Login:</h2>
+        <!-- Formulário com ID "loginForm" -->
+        <form id="loginForm" class="max-w-lg">
+            <div class="mb-4">
+                <label for="user" class="block text-gray-700">Logue com seu usuário (@):</label>
+                <input type="text" id="user" name="user" required class="form-input mt-1 block w-full">
+            </div>
+            
+            <div class="mb-4">
+                <label for="senha" class="block text-gray-700">Senha:</label>
+                <input type="password" id="senha" name="senha" required class="form-input mt-1 block w-full">
+            </div>
+            
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').on('submit', function (e) {
+                e.preventDefault(); // Evita o envio padrão do formulário
+
+                // Coleta os dados do formulário
+                const user = $('#user').val();
+                const senha = $('#senha').val();
+
+                // Envia a requisição AJAX
+                $.ajax({
+                    url: 'database/login.php', // Caminho correto para o PHP
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ user: user, senha: senha }),
+                    success: function (response) {
+                        const result = JSON.parse(response);
+
+                        // Usando SweetAlert para exibir a mensagem
+                        if (result.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sucesso!',
+                                text: result.message,
+                            }).then(() => {
+                                // Limpa o formulário somente após sucesso
+                                $('#loginForm')[0].reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro!',
+                                text: result.message,
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro!',
+                            text: 'Erro ao tentar fazer login.',
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
