@@ -20,21 +20,46 @@
             $email = $_POST['email'];
             $senha = $_POST['senha'];
 
+            //ADICIONAR MAIS ETAPAS DE VERIFICAÇÃO POSTERIORMENTE
+
             // Validação do email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                echo "E-mail inválido!";
+                echo json_encode([
+                    'status' => 'erro',
+                    'mensagem' => 'E-mail inválido!'
+                ]);
                 exit;
             }
             
             // Validação da senha (mínimo de 8 caracteres)
             if (strlen($senha) < 8) {
-                echo "A senha deve ter pelo menos 8 caracteres!";
+                echo json_encode([
+                    'status' => 'erro',
+                    'mensagem' => 'A senha deve ter pelo menos 8 caracteres!'
+                ]);
                 exit;
             }
             
-            // Prepara a consulta SQL
+            // Verificação para evitar cadastros duplicados
+            $sql = "SELECT COUNT(*) FROM cadastro WHERE user = :user OR email = :email";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':user', $user, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetchColumn();
+
+            // Verifica se o user ou o e-mail já existem
+            if ($result > 0) {
+                echo json_encode([
+                    'status' => 'erro',
+                    'mensagem' => 'Este nome de usuário ou e-mail já está cadastrado!'
+                ]);
+                exit;
+            }
+
+            // Prepara a consulta SQL para inserção
             $sql = "INSERT INTO cadastro (user, nome, nasc, email, senha) 
-            VALUES (:user, :nome, :nasc, :email, :senha)";
+                    VALUES (:user, :nome, :nasc, :email, :senha)";
             
             // Prepara a declaração
             $stmt = $pdo->prepare($sql);
@@ -44,59 +69,20 @@
             $stmt->bindValue(':nome', $nome, PDO::PARAM_STR);
             $stmt->bindValue(':nasc', $nasc, PDO::PARAM_STR);
             $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-            $stmt->bindValue(':senha', $senha, PDO::PARAM_STR);
+            $stmt->bindValue(':senha', password_hash($senha, PASSWORD_BCRYPT), PDO::PARAM_STR); // Usa password_hash para segurança
             
             // Executa a consulta
             $stmt->execute();
             
-            echo "Dados inseridos com sucesso!";
+            echo json_encode([
+                'status' => 'sucesso',
+                'mensagem' => 'Cadastro realizado com sucesso!'
+            ]);
         }
     } catch(PDOException $e) {
-        // Em caso de erro, exibe a mensagem de erro
-        echo "Erro: " . $e->getMessage();
+        echo json_encode([
+            'status' => 'erro',
+            'mensagem' => 'Erro ao cadastrar: ' . $e->getMessage()
+        ]);
     }
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <title>Fashion Maven's - Login</title>
-    <link 
-    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" 
-    rel="stylesheet"
-    >
-</head>
-<body class="bg-gray-100">
-    <div class="container mx-auto py-8">
-        <h2 class="text-2xl font-bold mb-4">Login:</h2>
-        <form method="POST" class="max-w-lg">
-            <div class="mb-4">
-                <label for="user" class="block text-gray-700">@ do Usuário:</label>
-                <input type="text" id="user" name="user" required class="form-input mt-1 block w-full">
-            </div>
-
-            <div class="mb-4">
-                <label for="nome" class="block text-gray-700">Nome:</label>
-                <input type="text" id="nome" name="nome" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <div class="mb-4">
-                <label for="nasc" class="block text-gray-700">Data de Nascimento:</label>
-                <input type="date" id="nasc" name="nasc" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700">E-mail:</label>
-                <input type="email" id="email" name="email" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <div class="mb-4">
-                <label for="senha" class="block text-gray-700">Senha:</label>
-                <input type="password" id="senha" name="senha" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
-        </form>
-    </div>
-</body>
-</html>

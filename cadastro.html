@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Maven's - Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <h2 class="text-2xl font-bold mb-4">Cadastro:</h2>
+        <form id="formCadastro" class="max-w-lg">
+            <div class="mb-4">
+                <label for="user" class="block text-gray-700">@ do Usuário:</label>
+                <input type="text" id="user" name="user" required class="form-input mt-1 block w-full">
+            </div>
+
+            <div class="mb-4">
+                <label for="nome" class="block text-gray-700">Nome:</label>
+                <input type="text" id="nome" name="nome" required class="form-input mt-1 block w-full">
+            </div>
+            
+            <div class="mb-4">
+                <label for="nasc" class="block text-gray-700">Data de Nascimento:</label>
+                <input type="date" id="nasc" name="nasc" required class="form-input mt-1 block w-full">
+            </div>
+            
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700">E-mail:</label>
+                <input type="email" id="email" name="email" required class="form-input mt-1 block w-full">
+            </div>
+            
+            <div class="mb-4">
+                <label for="senha" class="block text-gray-700">Senha:</label>
+                <input type="password" id="senha" name="senha" required class="form-input mt-1 block w-full">
+            </div>
+            
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Cadastrar</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Quando o formulário for enviado
+            $('#formCadastro').on('submit', function(event) {
+                event.preventDefault(); // Previne o envio normal do formulário
+                
+                var formData = $(this).serialize(); // Obtém todos os dados do formulário
+                
+                $.ajax({
+                    url: 'database/cadastro.php', // Caminho correto para o PHP
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json', // Espera resposta em JSON
+                    success: function(response) {
+                        // Se o cadastro for bem-sucedido
+                        if (response.status === 'sucesso') {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: response.mensagem,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                            $('#formCadastro')[0].reset(); // Limpa o formulário
+                        } else {
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: response.mensagem,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Erro!',
+                            text: 'Erro ao cadastrar, tente novamente.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
