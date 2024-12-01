@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Maven's - Cadastro</title>
+    <title>Fashion Maven's</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="assets/logo-color.png"> <!--Favicon-->
 
     <style>
          /* CSS Interno */
@@ -42,14 +43,13 @@
         }
 
         h6 {
-            font-size: 36px;
-            margin-bottom: 20px;
+            font-size: 30px;
         }
 
         .form {
             display: flex;
             flex-direction: column; /*alinha os itens em forma de colunas, um embaixo do outro*/
-            gap: 10px; /*espaço entre os itens*/
+            gap: 8px; /*espaço entre os itens*/
         }
 
         input /*estilização da entrada do usuário*/ {
@@ -59,6 +59,7 @@
             border: none;
             outline: none;
             font-size: 16px;
+            color: black;
         }
 
         .divisor {
@@ -66,13 +67,12 @@
             align-items: center;
             gap: 10px;
             color: var(--rosa-secundario);
-            font-size: 14px;
+            font-size: 16px;
             text-transform: uppercase;
-            margin: 10px;
+            margin: 1px;
         }
 
-        .divisor::before,
-        .divisor::after {
+        .divisor::before, .divisor::after {
             content: '';
             flex: 1;
             height: 1px;
@@ -113,23 +113,24 @@
     <div class="cad">
         <!--Área de cadastro-->
         <h6>Junte-se à maior comunidade de Dress to Impress!</h6>
-        <p>Cadastre-se:</p>
+        <div class="divisor">
+            <span>&nbsp;Cadastre-se&nbsp;</span>
+        </div>
 
-        <form id="form">
+        <form id="form" class="form">
             <label for="user">@ de usuário:</label>
-            <input type="text" id="user" name="user" placeholder="Digite seu @ de usuário" class="w-full mb-4 p-2 border rounded">
+            <input type="text" id="user" name="user" placeholder="Digite seu @ de usuário" class="input">
 
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" placeholder="Nome de exibição" class="w-full mb-4 p-2 border rounded">
+            <input type="text" id="nome" name="nome" placeholder="Nome de exibição" class="input">
 
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" placeholder="Digite seu melhor e-mail" class="w-full mb-4 p-2 border rounded">
-
+            <input type="email" id="email" name="email" placeholder="Digite seu melhor e-mail" class="input">
             <label for="nasc">Data de Nascimento:</label>
-            <input type="date" id="nasc" name="nasc" class="w-full mb-4 p-2 border rounded">
+            <input type="date" id="nasc" name="nasc" class="input">
 
             <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" placeholder="Senha de pelo menos 8 dígitos" class="w-full mb-4 p-2 border rounded">
+            <input type="password" id="senha" name="senha" placeholder="Senha de pelo menos 8 dígitos" class="input">
 
             <button type="submit" class="btn">Criar Conta</button>
 
