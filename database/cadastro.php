@@ -14,15 +14,30 @@
         // Verifica se o formulário foi submetido
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Obtém os dados do formulário
-            $user = $_POST['user'];
-            $nome = $_POST['nome'];
-            $nasc = $_POST['nasc'];
-            $email = $_POST['email'];
-            $senha = $_POST['senha'];
+            $user = trim($_POST['user']); //evita espaços em branccos
+            $nome = trim($_POST['nome']);
+            $nasc = trim($_POST['nasc']);
+            $email = trim($_POST['email']);
+            $senha = trim($_POST['senha']);
 
-            //ADICIONAR MAIS ETAPAS DE VERIFICAÇÃO POSTERIORMENTE
+            // Verificação 1: idade
+            //Se o usuário for menor de 13 anos, barra o cadastro
+            function validarIdade($dataNascimento) {
+                $dataAtual = new DateTime();
+                $dataNasc = new DateTime($dataNascimento);
+                $idade = $dataAtual->diff($dataNasc)->y;
+                return $idade >= 13; // Retorna true se a idade for >= 13
+            }
 
-            // Validação do email
+            if (!validarIdade($nasc)) {
+                echo json_encode([
+                    'status' => 'erro',
+                    'mensagem' => 'É necessário ter pelo menos 13 anos para se cadastrar!'
+                ]);
+                exit;
+            }
+
+            // Verificação 2: validação do email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 echo json_encode([
                     'status' => 'erro',

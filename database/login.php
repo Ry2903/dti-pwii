@@ -30,6 +30,7 @@ try {
 
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Mensagens de erro
         if ($usuario) {
             if ($senha === $usuario['senha']) {
                 echo json_encode(['success' => true, 'message' => 'Login bem-sucedido!']);

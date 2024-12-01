@@ -9,7 +9,8 @@ CREATE TABLE cadastro (
     nome varchar(100) NOT NULL,
     nasc date NOT NULL,
     email varchar(100) UNIQUE NOT NULL,
-    senha varchar(100) NOT NULL
+    senha varchar(100) NOT NULL,
+    criado TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Criação da tabela userpage
