@@ -5,58 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion Maven's - Cadastro</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        :root {
+            --roxo-fundo: #3C0734;
+            --rosa-principal: #F442DE;
+            --rosa-secundario: #FF9DEA;
+            --branco-fundo: #EFDBEB;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Jockey One", sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: var(--roxo-fundo);
+            color: white;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cad {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h6 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column; /*alinha os itens em forma de colunas, um embaixo do outro*/
+            gap: 10px; /*espaço entre os itens*/
+        }
+
+        input /*estilização da entrada do usuário*/ {
+            width: 100%;
+            padding: 10px;
+            border-radius: 25px; /*arredondamento da borda*/
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .divisor {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--rosa-secundario);
+            font-size: 14px;
+            text-transform: uppercase;
+            margin: 10px;
+        }
+
+        .divisor::before,
+        .divisor::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--rosa-secundario);
+        }
+
+        .btn /*Estilização dos botões*/{
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            color: white;
+            background-color: var(--rosa-principal);
+            cursor: pointer;
+            width: 100%;
+        }
+
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        p, label {
+            text-align: center;
+            margin: 5x;
+            font-size: 18px;
+        }
+
+        h5 {
+            text-align: center;
+            margin: 5x;
+            font-size: 18px;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100">
-    <div class="container mx-auto py-8">
-        <h2 class="text-2xl font-bold mb-4">Cadastro:</h2>
-        <form id="formCadastro" class="max-w-lg">
-            <div class="mb-4">
-                <label for="user" class="block text-gray-700">@ do Usuário:</label>
-                <input type="text" id="user" name="user" required class="form-input mt-1 block w-full">
-            </div>
+<body>
+    <div class="cad">
+        <h6>Junte-se à maior comunidade de Dress to Impress!</h6>
+        <p>Cadastre-se:</p>
 
-            <div class="mb-4">
-                <label for="nome" class="block text-gray-700">Nome:</label>
-                <input type="text" id="nome" name="nome" required class="form-input mt-1 block w-full">
+        <form id="form">
+            <label for="user">@ de usuário:</label>
+            <input type="text" id="user" name="user" placeholder="Digite seu @ de usuário" class="w-full mb-4 p-2 border rounded">
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome de exibição" class="w-full mb-4 p-2 border rounded">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu melhor e-mail" class="w-full mb-4 p-2 border rounded">
+
+            <label for="nasc">Data de Nascimento:</label>
+            <input type="date" id="nasc" name="nasc" class="w-full mb-4 p-2 border rounded">
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" placeholder="Senha de pelo menos 8 dígitos" class="w-full mb-4 p-2 border rounded">
+
+            <button type="submit" class="btn">Criar Conta</button>
+
+            <div class="divisor">
+                <span>&nbsp;Já tem uma conta?&nbsp;</span>
             </div>
-            
-            <div class="mb-4">
-                <label for="nasc" class="block text-gray-700">Data de Nascimento:</label>
-                <input type="date" id="nasc" name="nasc" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700">E-mail:</label>
-                <input type="email" id="email" name="email" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <div class="mb-4">
-                <label for="senha" class="block text-gray-700">Senha:</label>
-                <input type="password" id="senha" name="senha" required class="form-input mt-1 block w-full">
-            </div>
-            
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Cadastrar</button>
-        </form>
+            <button type="button" class="btn">Entrar</button>
+        </form> 
     </div>
 
     <script>
         $(document).ready(function() {
-            // Quando o formulário for enviado
-            $('#formCadastro').on('submit', function(event) {
-                event.preventDefault(); // Previne o envio normal do formulário
-                
-                var formData = $(this).serialize(); // Obtém todos os dados do formulário
+            $('#form').on('submit', function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
                 
                 $.ajax({
-                    url: 'database/cadastro.php', // Caminho correto para o PHP
+                    url: 'database/cadastro.php',
                     type: 'POST',
                     data: formData,
-                    dataType: 'json', // Espera resposta em JSON
+                    dataType: 'json',
                     success: function(response) {
-                        // Se o cadastro for bem-sucedido
                         if (response.status === 'sucesso') {
                             Swal.fire({
                                 title: 'Sucesso!',
@@ -64,7 +157,7 @@
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             });
-                            $('#formCadastro')[0].reset(); // Limpa o formulário
+                            $('#formCadastro')[0].reset();
                         } else {
                             Swal.fire({
                                 title: 'Erro!',
@@ -83,6 +176,10 @@
                         });
                     }
                 });
+            });
+
+            $('.btn:contains("Entrar")').on('click', function() {
+                window.location.href = "login.html";
             });
         });
     </script>
