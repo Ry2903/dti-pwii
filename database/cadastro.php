@@ -1,6 +1,6 @@
 <?php
     // Configurações do banco de dados
-    $dsn = 'mysql:host=localhost:3306;dbname=fashionmavens';
+    $dsn = 'mysql:host=localhost;dbname=fashionmavens';
     $username = 'root';
     $password = '';
 
@@ -69,7 +69,7 @@
             $stmt->bindValue(':nome', $nome, PDO::PARAM_STR);
             $stmt->bindValue(':nasc', $nasc, PDO::PARAM_STR);
             $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-            $stmt->bindValue(':senha', password_hash($senha, PASSWORD_BCRYPT), PDO::PARAM_STR); // Usa password_hash para segurança
+            $stmt->bindValue(':senha', $senha, PDO::PARAM_STR);
             
             // Executa a consulta
             $stmt->execute();

@@ -4,7 +4,8 @@ USE fashionmavens;
 
 -- Criação da tabela cadastro
 CREATE TABLE cadastro (
-    user varchar(50) PRIMARY KEY,
+    userid int NOT NULL auto_increment,
+    user varchar(50) UNIQUE NOT NULL PRIMARY KEY,
     nome varchar(100) NOT NULL,
     nasc date NOT NULL,
     email varchar(100) UNIQUE NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE cadastro (
 
 -- Criação da tabela userpage
 CREATE TABLE userpage (
+    pageid int NOT NULL auto_increment,
     user varchar(50),
     bio text,
     banner varchar(255),
