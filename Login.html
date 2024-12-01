@@ -23,54 +23,41 @@
                 <input type="password" id="senha" name="senha" required class="form-input mt-1 block w-full">
             </div>
             
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Entrar</button>
         </form>
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#loginForm').on('submit', function (e) {
-                e.preventDefault(); // Evita o envio padrão do formulário
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-                // Coleta os dados do formulário
-                const user = $('#user').val();
-                const senha = $('#senha').val();
+            const user = document.getElementById('user').value;
+            const senha = document.getElementById('senha').value;
 
-                // Envia a requisição AJAX
-                $.ajax({
-                    url: 'database/login.php', // Caminho correto para o PHP
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ user: user, senha: senha }),
-                    success: function (response) {
-                        const result = JSON.parse(response);
-
-                        // Usando SweetAlert para exibir a mensagem
-                        if (result.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Sucesso!',
-                                text: result.message,
-                            }).then(() => {
-                                // Limpa o formulário somente após sucesso
-                                $('#loginForm')[0].reset();
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Erro!',
-                                text: result.message,
-                            });
-                        }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erro!',
-                            text: 'Erro ao tentar fazer login.',
-                        });
-                    }
-                });
+            fetch('php/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user, senha })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);  // Verifique a resposta do servidor
+                if (data.success) {
+                    Swal.fire('Sucesso', data.message, 'success').then(() => {
+                        window.location.href = data.redirect;
+                    });
+                } else {
+                    Swal.fire('Erro', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                Swal.fire('Erro', 'Ocorreu um erro no servidor.', 'error');
+                console.error(error);
             });
         });
     </script>
