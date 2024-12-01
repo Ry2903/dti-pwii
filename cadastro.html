@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
+         /* CSS Interno */
         :root {
             --roxo-fundo: #3C0734;
             --rosa-principal: #F442DE;
@@ -110,6 +111,7 @@
 
 <body>
     <div class="cad">
+        <!--Área de cadastro-->
         <h6>Junte-se à maior comunidade de Dress to Impress!</h6>
         <p>Cadastre-se:</p>
 
@@ -131,6 +133,7 @@
 
             <button type="submit" class="btn">Criar Conta</button>
 
+            <!--Área para redirecionar ao login.html-->
             <div class="divisor">
                 <span>&nbsp;Já tem uma conta?&nbsp;</span>
             </div>
@@ -178,6 +181,7 @@
                 });
             });
 
+            /*Botão para redirecionar à página de login*/
             $('.btn:contains("Entrar")').on('click', function() {
                 window.location.href = "login.html";
             });
