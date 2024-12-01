@@ -4,24 +4,24 @@ USE fashionmavens;
 
 -- Criação da tabela cadastro
 CREATE TABLE cadastro (
-    userid int NOT NULL auto_increment,
-    user varchar(50) UNIQUE NOT NULL PRIMARY KEY,
+    userid int NOT NULL auto_increment PRIMARY KEY,
+    user varchar(50) UNIQUE NOT NULL,
     nome varchar(100) NOT NULL,
     nasc date NOT NULL,
     email varchar(100) UNIQUE NOT NULL,
     senha varchar(100) NOT NULL,
     criado TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+) DEFAULT charset utf8mb4;
 
 -- Criação da tabela userpage
 CREATE TABLE userpage (
-    pageid int NOT NULL auto_increment,
+    pageid int NOT NULL auto_increment PRIMARY KEY,
     user varchar(50),
     bio text,
     banner varchar(255),
     pfp varchar(255),
     FOREIGN KEY (user) REFERENCES cadastro(user)
-);
+)DEFAULT charset utf8mb4;
 
 -- Criação da tabela posts
 CREATE TABLE posts (
@@ -31,7 +31,7 @@ CREATE TABLE posts (
     imagem varchar(255),
     data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user) REFERENCES cadastro(user)
-);
+) DEFAULT charset utf8mb4;
 
 -- Inserção de usuários na tabela cadastro
 INSERT INTO cadastro (user, nome, nasc, email, senha) VALUES
@@ -65,23 +65,23 @@ INSERT INTO userpage (user, bio, banner, pfp) VALUES
 
 -- Inserção dos posts
 INSERT INTO posts (user, conteudo, imagem, data_postagem) VALUES
-('@snoopy', 'E eu que arrasei no look, pena que errei o tema #trevas', 'uploads/@snoopy_post_post1.jpeg', '2024-11-27 13:23:38'),
-('@ashleyyy', 'Uma foto diz mais que mil palavras.', 'uploads/ashleyyy_post_post2.jpeg', '2024-11-27 13:24:12'),
-('@titrifude', 'GENTE E A LORE DA LANA?? NÃƒO TO CONSEGUINDO PASSAR NENHUMA FASE AMO ðŸ˜ðŸ˜ðŸ˜ðŸ˜ðŸ˜ðŸ˜', NULL, '2024-11-27 13:25:28'),
-('@dinoslove', 'Eu e os de verdade quando o tema Ã© folclore', NULL, '2024-11-27 13:25:48'),
-('@dinoslove', 'Eu e os de verdade quando o tema Ã© folclore', 'uploads/dinoslove_post_post3.jpeg', '2024-11-27 13:26:04'),
-('@martinabox', 'Fizemos a Evelyn Hugo e a Celia St e perdemos, achei bem homofobico #atequandoopreconceito', 'uploads/martinabox_post_post4.jpeg', '2024-11-27 13:26:25'),
-('@catwalk', 'AlguÃ©m tem os cÃ³digos novos? ðŸ¤‘ðŸ¤‘ðŸ¤‘', NULL, '2024-11-27 13:26:50'),
-('@_riikan_', 'GENTE???', 'uploads/_riikan__post_post5.jpeg', '2024-11-27 13:27:07'),
-('@theking', 'Nem lembro qual era o tema, sÃ³ sei que eu perdi\r\n', 'uploads/theking_post_post6.jpeg', '2024-11-27 13:27:32'),
-('@grusensual', 'Eu quando arraso (nÃ£o pegamos 1 lugar odeio todos)', 'uploads/grusensual_post_post7.jpeg', '2024-11-27 13:28:11'),
-('@_memim', 'ODEIO ESSE POVO DESEMPREGADO QUE PROMETE VIP E DPS SAI NO SERVER, DESEJO SÃ“ REGRESSO PARA VCS!', NULL, '2024-11-27 13:28:34'),
-('@flawiiis', 'Simplesmente arrasei no look mas tive que sair antes da votaÃ§Ã£o #quemundoeessetaocruelqueagentevive', 'uploads/flawiiis_post_post8.jpeg', '2024-11-27 13:29:11'),
-('@flawiiis', 'Eu quando Sabrina Carpenter:\r\n', 'uploads/flawiiis_post_post9.jpeg', '2024-11-27 13:29:30'),
-('@flawiiis', 'Estou trocando pack do pÃ© por vip', NULL, '2024-11-27 13:29:42'),
-('@flawiiis', 'Achei soft\r\n', 'uploads/flawiiis_post_post10.jpeg', '2024-11-27 13:29:58'),
-('@flawiiis', 'Ainda tÃ´ em choque que perguntaram se o tema era chÃ¡ revelaÃ§Ã£o', 'uploads/flawiiis_post_post11.jpg', '2024-11-27 13:30:10'),
-('@pinguuu_', 'Eu quando tem parada gay:', 'uploads/pinguuu_ _post_post12.jpeg', '2024-11-27 13:30:28'),
-('@pinguuu_', 'Mas rapaz...', 'uploads/pinguuu_ _post_post13.jpeg', '2024-11-27 13:30:50'),
-('@pinguuu_', 'EU PASSEI, EU PASSEI OS NÃVEIS DA LANAAAAAAAAAAAA, NADA ME ABALAAAAAAAAAAAAAAAAA.', NULL, '2024-11-27 13:31:05'),
-('@pinguuu_', 'Nunca fiz tanta sobreposiÃ§Ã£o em um vestido, pelo menos o resultado ficou bom\r\n', 'uploads/pinguuu_ _post_post14.jpeg', '2024-11-27 13:31:34');
+("@snoopy", "E eu que arrasei no look, pena que errei o tema #trevas", "uploads/@snoopy_post_post1.jpeg", "2024-11-27 13:23:38"),
+("@ashleyyy", "Uma foto diz mais que mil palavras.", "uploads/ashleyyy_post_post2.jpeg", "2024-11-27 13:24:12"),
+("@titrifude", "GENTE E A LORE DA LANA?? NÃO TO CONSEGUINDO PASSAR NENHUMA FASE AMO 😍😍😍😍😍", NULL, "2024-11-27 13:25:28"),
+("@dinoslove", "Eu e os de verdade quando o tema é folclore", NULL, "2024-11-27 13:25:48"),
+("@dinoslove", "Eu e os de verdade quando o tema é folclore", "uploads/dinoslove_post_post3.jpeg", "2024-11-27 13:26:04"),
+("@martinabox", "Fizemos a Evelyn Hugo e a Celia St e perdemos, achei bem homofóbico #atequandoopreconceito", "uploads/martinabox_post_post4.jpeg", "2024-11-27 13:26:25"),
+("@catwalk", "Alguém tem os códigos novos? 🙏🙏🙏", NULL, "2024-11-27 13:26:50"),
+("@_riikan_", "GENTE???", "uploads/_riikan__post_post5.jpeg", "2024-11-27 13:27:07"),
+("@theking", "Nem lembro qual era o tema, só sei que eu perdi", "uploads/theking_post_post6.jpeg", "2024-11-27 13:27:32"),
+("@grusensual", "Eu quando arraso (não pegamos 1º lugar, odeio todos)", "uploads/grusensual_post_post7.jpeg", "2024-11-27 13:28:11"),
+("@_memim", "ODEIO ESSE POVO DESEMPREGADO QUE PROMETE VIP E DPS SAI NO SERVER, DESEJO SÓ REGRESSO PARA VCS!", NULL, "2024-11-27 13:28:34"),
+("@flawiiis", "Simplesmente arrasei no look mas tive que sair antes da votação #quemundoeessetaocruelqueagentevive", "uploads/flawiiis_post_post8.jpeg", "2024-11-27 13:29:11"),
+("@flawiiis", "Eu quando Sabrina Carpenter:", "uploads/flawiiis_post_post9.jpeg", "2024-11-27 13:29:30"),
+("@flawiiis", "Estou trocando pack do pé por VIP", NULL, "2024-11-27 13:29:42"),
+("@flawiiis", "Achei soft", "uploads/flawiiis_post_post10.jpeg", "2024-11-27 13:29:58"),
+("@flawiiis", "Ainda tô em choque que perguntaram se o tema era chá revelação", "uploads/flawiiis_post_post11.jpg", "2024-11-27 13:30:10"),
+("@pinguuu_", "Eu quando tem parada gay:", "uploads/pinguuu__post_post12.jpeg", "2024-11-27 13:30:28"),
+("@pinguuu_", "Mas rapaz...", "uploads/pinguuu__post_post13.jpeg", "2024-11-27 13:30:50"),
+("@pinguuu_", "EU PASSEI, EU PASSEI OS NÍVEIS DA LANA, NADA ME ABALA!", NULL, "2024-11-27 13:31:05"),
+("@pinguuu_", "Nunca fiz tanta sobreposição em um vestido, pelo menos o resultado ficou bom", "uploads/pinguuu__post_post14.jpeg", "2024-11-27 13:31:34");
