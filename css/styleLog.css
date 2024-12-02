@@ -1,0 +1,72 @@
+:root {
+    --roxo-fundo: #3C0734;
+    --rosa-principal: #F442DE;
+    --rosa-secundario: #FF9DEA;
+    --branco-fundo: #EFDBEB;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Jockey One", sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: var(--roxo-fundo);
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.login {
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column; /*alinha os itens em forma de colunas, um embaixo do outro*/
+    gap: 10px; /*espaço entre os itens*/
+}
+
+.input /*estilização da entrada do usuário*/ {
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px; /*arredondamento da borda*/
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: black;
+}
+
+.btn /*Estilização dos botões*/{
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    color: white;
+    background-color: var(--rosa-principal);
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+p, label, center {
+    text-align: center;
+    margin: 5x;
+    font-size: 18px;
+}

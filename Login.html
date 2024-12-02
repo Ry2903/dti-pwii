@@ -1,91 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion Maven's</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet"> <!--Fonte escolhida no figma-->
+    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
+    <!--Fonte escolhida no figma-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Adicionando jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
     <link rel="icon" type="image/x-icon" href="assets/logo-color.png"> <!--Favicon-->
-
-    <style>
-        /* CSS Interno */
-       :root {
-           --roxo-fundo: #3C0734;
-           --rosa-principal: #F442DE;
-           --rosa-secundario: #FF9DEA;
-           --branco-fundo: #EFDBEB;
-       }
-
-
-       * {
-           margin: 0;
-           padding: 0;
-           box-sizing: border-box;
-       }
-
-       body {
-           font-family: "Jockey One", sans-serif;
-           display: flex;
-           height: 100vh;
-           background-color: var(--roxo-fundo);
-           color: white;
-           align-items: center;
-           justify-content: center;
-       }
-
-       .login {
-           text-align: center;
-           max-width: 400px;
-           width: 100%;
-       }
-
-       h2 {
-           font-size: 36px;
-           margin-bottom: 20px;
-       }
-
-       .form {
-           display: flex;
-           flex-direction: column; /*alinha os itens em forma de colunas, um embaixo do outro*/
-           gap: 10px; /*espaço entre os itens*/
-       }
-
-       .input /*estilização da entrada do usuário*/ {
-           width: 100%;
-           padding: 10px;
-           border-radius: 25px; /*arredondamento da borda*/
-           border: none;
-           outline: none;
-           font-size: 16px;
-           color: black;
-       }
-
-       .btn /*Estilização dos botões*/{
-           padding: 10px;
-           border: none;
-           border-radius: 25px;
-           font-size: 18px;
-           color: white;
-           background-color: var(--rosa-principal);
-           cursor: pointer;
-           width: 100%;
-       }
-
-
-       .btn:hover {
-           opacity: 0.9;
-       }
-       
-       p, label, center {
-           text-align: center;
-           margin: 5x;
-           font-size: 18px;
-       }
-   </style>
+    <link rel="stylesheet" href="css/styleLog.css">
 </head>
+
 <body>
     <div class="login">
         <h2>Que bom ter você de volta!</h2>
@@ -95,62 +23,50 @@
                 <label for="user">Logue com seu usuário (@):</label>
                 <input type="text" id="user" name="user" class="input">
             </div>
-            
+
             <div class="form">
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" class="input">
             </div>
-            
+
             <button type="submit" class="btn">Entrar</button>
         </form>
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#loginForm').on('submit', function (e) {
-                e.preventDefault(); // Evita o envio padrão do formulário
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-                // Coleta os dados do formulário
-                const user = $('#user').val();
-                const senha = $('#senha').val();
+            const user = document.getElementById('user').value;
+            const senha = document.getElementById('senha').value;
 
-                // Envia a requisição AJAX
-                $.ajax({
-                    url: 'database/login.php', // Caminho correto para o PHP
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ user: user, senha: senha }),
-                    success: function (response) {
-                        const result = JSON.parse(response);
-
-                        // Usando SweetAlert para exibir a mensagem
-                        if (result.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Sucesso!',
-                                text: result.message,
-                            }).then(() => {
-                                // Limpa o formulário somente após sucesso
-                                $('#loginForm')[0].reset();
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Erro!',
-                                text: result.message,
-                            });
-                        }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erro!',
-                            text: 'Erro ao tentar fazer login.',
-                        });
+            fetch('php/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user, senha })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição');
                     }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);  // Verifique a resposta do servidor
+                    if (data.success) {
+                        Swal.fire('Sucesso', data.message, 'success').then(() => {
+                            window.location.href = data.redirect;
+                        });
+                    } else {
+                        Swal.fire('Erro', data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    Swal.fire('Erro', 'Ocorreu um erro no servidor.', 'error');
+                    console.error(error);
                 });
-            });
         });
     </script>
 </body>
+
 </html>
